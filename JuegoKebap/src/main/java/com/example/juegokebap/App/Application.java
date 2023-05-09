@@ -1,6 +1,7 @@
 package com.example.juegokebap.App;
 
-import com.example.juegokebap.GameMain;
+import com.GameEngine.GameMain;
+import com.example.juegokebap.Stages.*;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -17,8 +18,16 @@ public class Application extends javafx.application.Application {
         root.getChildren().add(canvas);
 
         stage.setScene(new Scene(root));
-        new GameMain(canvas);
+        GameMain main = new GameMain(canvas);
 
+        main.addStage(new Home());
+        main.addStage(new Work());
+        main.addStage(new Test());
+        main.addStage(new FriesMiniGame());
+        main.addStage(new DancingBoxes());
+
+        main.startStage("DancingBoxes");
+        main.start();
         stage.show();
     }
 

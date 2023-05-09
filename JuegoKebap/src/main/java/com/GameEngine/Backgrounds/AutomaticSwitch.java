@@ -1,6 +1,9 @@
 package com.GameEngine.Backgrounds;
 
 import com.GameEngine.Management.Stadistics;
+import com.GameEngine.Objects.ControllableSprite;
+import com.GameEngine.Objects.Sprite;
+import com.GameEngine.Stages.Stage;
 
 import java.util.List;
 
@@ -12,7 +15,7 @@ public class AutomaticSwitch implements Background{
         this.scene = scene;
     }
     @Override
-    public Tasks Run(List<Background> objects, Stadistics gameStats, Stadistics sceneStats, Tasks tasks) {
+    public Tasks Run(List<ControllableSprite> objects, Stadistics gameStats, Stadistics sceneStats, Tasks tasks, Stage stage) {
         if(sceneStats.getTotalLapsed() > this.after) tasks.startScene(this.scene);
         return tasks;
     }

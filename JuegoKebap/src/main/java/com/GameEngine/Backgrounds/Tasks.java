@@ -9,7 +9,6 @@ import java.util.HashMap;
  */
 public class Tasks {
     private HashMap<String, String> content = new HashMap();
-
     public void activateScene(String scene){
         content.put("activateScene", scene);
     }

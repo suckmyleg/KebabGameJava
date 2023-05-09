@@ -1,8 +1,8 @@
 package com.GameEngine.Management;
 
 import com.GameEngine.Backgrounds.Tasks;
-import com.GameEngine.Management.Stadistics;
-import com.GameEngine.Objects.Object2d;
+import com.GameEngine.Objects.ControllableSprite;
+import com.GameEngine.Objects.Sprite;
 import com.GameEngine.Stages.Stage;
 import javafx.scene.image.Image;
 
@@ -44,7 +44,7 @@ public class StageManager {
         this.runningStage.Activate();
     }
 
-    public List<Object2d> objectsToDraw(){
+    public List<ControllableSprite> objectsToDraw(){
         if(this.runningStage == null) return null;
         return this.runningStage.objectsToDraw();
     }
@@ -59,8 +59,8 @@ public class StageManager {
         return this.runningStage.getBackground();
     }
 
-    public void Run(){
-        this.stats.run();
+    public void Run(double w, double h){
+        this.stats.run(w, h);
 
         this.runningStage.RunObjects(this.stats);
 

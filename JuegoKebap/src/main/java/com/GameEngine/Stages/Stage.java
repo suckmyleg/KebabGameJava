@@ -6,8 +6,10 @@ import com.GameEngine.Maps.Map;
 import com.GameEngine.Maps.Map2D;
 import com.GameEngine.Management.GameContent;
 import com.GameEngine.Management.Stadistics;
-import com.GameEngine.Objects.Object2d;
+import com.GameEngine.Objects.ControllableSprite;
+import com.GameEngine.Objects.Sprite;
 import com.GameEngine.Utils.SecureImage;
+import com.GameEngine.Vectors.Vector;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class Stage {
     protected Map map;
     protected List<Background> backgrounds = new ArrayList<>();
     protected final Image backgroundImage;
+    private Vector size;
 
     public void Start(){
         System.out.println("+"+this.name+" scene");
@@ -34,16 +37,18 @@ public class Stage {
         System.out.println("-"+this.name+" scene");
     }
 
-    public void Activate() { this.stats = new Stadistics(); }
+    public void Activate() {
+        this.stats = new Stadistics();
+    }
 
     public void RunObjects(Stadistics gameStats){
-        List<Object2d> objects = this.map.getObjects();
+        List<ControllableSprite> objects = this.map.getObjects();
         objects.forEach(x -> x.Run(new GameContent(this.map.getObjects(), gameStats, this.stats, x)));
     }
 
     public Tasks RunBackgrounds(Stadistics gameStats){
         Tasks tasks = new Tasks();
-        this.backgrounds.forEach(x -> x.Run(this.backgrounds, gameStats, this.stats, tasks));
+        this.backgrounds.forEach(x -> x.Run(this.map.getObjects(), gameStats, this.stats, tasks, this));
         return tasks;
     }
 
@@ -69,7 +74,7 @@ public class Stage {
         this.map = new Map2D();
     }
 
-    public List<Object2d> objectsToDraw(){
+    public List<ControllableSprite> objectsToDraw(){
         return this.map.getObjects();
     }
 
@@ -84,9 +89,10 @@ public class Stage {
     public void clearBackgrounds(){
         this.backgrounds = new ArrayList<>();
     }
-    public void addObject(Object2d o){
+    public void addObject(ControllableSprite o){
         this.map.add(o);
         System.out.println("Added object\n"+o);
+        o.Start(o);
     }
     public void addBackground(Background b){
         this.backgrounds.add(this.backgrounds.size(), b);

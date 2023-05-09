@@ -1,12 +1,13 @@
 package com.GameEngine.Maps;
 
-import com.GameEngine.Objects.Object2d;
+import com.GameEngine.Objects.ControllableSprite;
+import com.GameEngine.Objects.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Map2D implements Map{
-    protected List<Object2d> map;
+    protected List<ControllableSprite> map;
 
     public Map2D(){
         initializeMap();
@@ -23,19 +24,19 @@ public class Map2D implements Map{
     }
 
     @Override
-    public boolean add(Object2d obj) {
+    public boolean add(ControllableSprite obj) {
         this.map.add(this.map.size(), obj);
         return true;
     }
 
     @Override
-    public boolean remove(Object2d obj) {
+    public boolean remove(ControllableSprite obj) {
         this.map.remove(obj);
         return true;
     }
 
     @Override
-    public List<Object2d> getObjects() {
+    public List<ControllableSprite> getObjects() {
         return this.map;
     }
 

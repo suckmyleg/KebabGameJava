@@ -3,7 +3,7 @@ package com.GameEngine.Objects;
 import com.GameEngine.Vectors.Vector;
 import com.GameEngine.Vectors.VectorU;
 
-public class IsometricObject extends Object2d{
+public class IsometricObject extends ControllableSprite {
     private final Vector orientation = new VectorU(0, 0, 1);
 
     private void initialize(String name){

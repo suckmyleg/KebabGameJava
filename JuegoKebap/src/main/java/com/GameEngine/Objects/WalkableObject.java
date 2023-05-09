@@ -2,7 +2,7 @@ package com.GameEngine.Objects;
 
 import com.GameEngine.Vectors.Vector;
 
-public class WalkableObject extends Object2d {
+public class WalkableObject extends ControllableSprite {
     private final double speedX;
     private final double speedY;
 

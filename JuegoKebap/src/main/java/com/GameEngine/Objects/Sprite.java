@@ -5,56 +5,59 @@ import com.GameEngine.Management.GameContent;
 import com.GameEngine.Management.PlayerStats;
 import com.GameEngine.Utils.*;
 import com.GameEngine.Vectors.Vector;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class Object that has an image, position and size, it can be seen in the canvas and can run code itself
  * @author suckmyleg
  * @version 1.0
  */
-public class Object2d {
+public class Sprite {
     protected SuperImage img;
     protected Vector position;
     protected Vector size;
     protected PlayerStats stats;
-    protected Controller controller;
 
-    public Object2d(Vector position, Vector size){
+    public Sprite(Vector position, Vector size){
         this.position = position;
         this.size = size;
         this.stats = new PlayerStats();
         this.img = new SuperImage();
     }
 
-    public Object2d(String url, Vector position, Vector size){
+    public Sprite(String url, Vector position, Vector size){
         this.position = position;
         this.size = size;
         this.stats = new PlayerStats();
         this.img = new SuperImage(url, this.size.getX(), this.size.getY());
     }
 
-    public Object2d(String url, Vector position){
+    public Sprite(String url, Vector position){
         this.position = position;
         this.size = new Vector();
         this.stats = new PlayerStats();
         this.img = new SuperImage(url, this.size.getX(), this.size.getY());
     }
 
-    public Object2d(Vector position){
+    public Sprite(Vector position){
         this.position = position;
         this.size = new Vector();
         this.stats = new PlayerStats();
         this.img = new SuperImage();
     }
 
-    public Object2d(String url){
+    public Sprite(String url){
         this.position = new Vector();
         this.size = new Vector();
         this.stats = new PlayerStats();
         this.img = new SuperImage(url, this.size.getX(), this.size.getY());
     }
 
-    public Object2d(){
+    public Sprite(){
         this.position = new Vector();
         this.size = new Vector();
         this.stats = new PlayerStats();
@@ -77,6 +80,7 @@ public class Object2d {
         return this.position.getZ();
     }
 
+
     public double getWidth(){
         return this.size.getX();
     }
@@ -84,17 +88,20 @@ public class Object2d {
         return this.size.getY();
     }
 
+
     public Vector getSize(){return this.size;}
-    public Image getImage(){
-        return this.img.get();
-    }
     public Vector getPosition(){
         return this.position;
     }
 
-    public void Run(GameContent content){
-        if(this.controller!=null)this.controller.Run(content);
+
+    public Image getImage(){
+        return this.img.get();
     }
+
+
+    public void Run(GameContent content){}
+    public void Start(Sprite o){}
 
     @Override
     public String toString(){

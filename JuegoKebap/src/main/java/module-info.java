@@ -10,7 +10,6 @@ module com.example.juegokebap {
     requires javafx.graphics;
 
     opens com.example.juegokebap to javafx.fxml;
-    exports com.example.juegokebap;
     exports com.GameEngine.Utils;
     opens com.GameEngine.Utils to javafx.fxml;
     exports com.example.juegokebap.Stages;
@@ -31,4 +30,6 @@ module com.example.juegokebap {
     opens com.GameEngine.Management to javafx.fxml;
     exports com.GameEngine.Vectors;
     opens com.GameEngine.Vectors to javafx.fxml;
+    exports com.GameEngine;
+    opens com.GameEngine to javafx.fxml;
 }

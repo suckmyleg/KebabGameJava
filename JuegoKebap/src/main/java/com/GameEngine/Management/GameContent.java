@@ -1,22 +1,22 @@
 package com.GameEngine.Management;
 
-import com.GameEngine.Objects.Object2d;
+import com.GameEngine.Objects.ControllableSprite;
+import com.GameEngine.Objects.Sprite;
 
 import java.util.List;
-import java.util.Objects;
 
 public class GameContent {
-    List<Object2d> objects;
+    List<ControllableSprite> objects;
     Stadistics gameStats;
     Stadistics sceneStats;
-    Object2d controlling;
+    ControllableSprite controlling;
 
-    public Object2d getControlling(){return this.controlling;}
+    public ControllableSprite getControlling(){return this.controlling;}
     public Stadistics getGameStats(){return this.gameStats;}
     public Stadistics getSceneStats(){return this.sceneStats;}
-    public List<Object2d> getObjects(){return this.objects;}
+    public List<ControllableSprite> getObjects(){return this.objects;}
 
-    public GameContent(List<Object2d> objects, Stadistics gameStats, Stadistics sceneStats, Object2d controlling){
+    public GameContent(List<ControllableSprite> objects, Stadistics gameStats, Stadistics sceneStats, ControllableSprite controlling){
         this.objects = objects;
         this.gameStats = gameStats;
         this.sceneStats = sceneStats;

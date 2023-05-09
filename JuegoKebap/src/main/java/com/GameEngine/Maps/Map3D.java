@@ -1,6 +1,7 @@
 package com.GameEngine.Maps;
 
-import com.GameEngine.Objects.Object2d;
+import com.GameEngine.Objects.ControllableSprite;
+import com.GameEngine.Objects.Sprite;
 import com.GameEngine.Vectors.Vector;
 
 import java.util.Arrays;
@@ -9,11 +10,11 @@ import java.util.Objects;
 
 public class Map3D implements Map{
     protected final Vector mapSize;
-    protected Object2d[][][] map;
+    protected ControllableSprite[][][] map;
     protected int count;
 
     public void initializeMap(){
-        this.map = new Object2d[(int)this.mapSize.getZ()][(int)this.mapSize.getX()][(int)this.mapSize.getZ()];
+        this.map = new ControllableSprite[(int)this.mapSize.getZ()][(int)this.mapSize.getX()][(int)this.mapSize.getZ()];
         count = 0;
     }
 
@@ -22,7 +23,7 @@ public class Map3D implements Map{
         initializeMap();
     }
 
-    protected Object2d rawGetObject(double x, double y, double z){
+    protected Sprite rawGetObject(double x, double y, double z){
         return this.map[(int)z][(int)(this.mapSize.getX()-x)][(int)y];
     }
     protected boolean outOfMap(double x, double y, double z){
@@ -36,7 +37,7 @@ public class Map3D implements Map{
     }
 
     @Override
-    public boolean add(Object2d obj){
+    public boolean add(ControllableSprite obj){
         if(this.outOfMap(obj.getX(), obj.getY(), obj.getZ())) return false;
         this.map[(int)obj.getZ()][(int)(this.mapSize.getX()-obj.getX())][(int)obj.getY()] = obj;
         count++;
@@ -44,7 +45,7 @@ public class Map3D implements Map{
     }
 
     @Override
-    public boolean remove(Object2d obj){
+    public boolean remove(ControllableSprite obj){
         if(this.outOfMap(obj.getX(), obj.getY(), obj.getZ())) return false;
         this.map[(int)obj.getZ()][(int)(this.mapSize.getX()-obj.getX())][(int)obj.getY()] = null;
         count--;
@@ -52,7 +53,7 @@ public class Map3D implements Map{
     }
 
     @Override
-    public List<Object2d> getObjects() {
+    public List<ControllableSprite> getObjects() {
         return Arrays.stream(this.map)
                 .flatMap(Arrays::stream)
                 .flatMap(Arrays::stream)
