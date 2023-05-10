@@ -1,11 +1,12 @@
 package com.GameEngine;
 import com.GameEngine.Management.StageManager;
 import com.GameEngine.Stages.Stage;
-import com.example.juegokebap.Stages.Home;
-import com.example.juegokebap.Stages.Test;
-import com.example.juegokebap.Stages.Work;
+import com.GameEngine.Utils.MouseEvents;
+import javafx.application.Platform;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Class to define the main loader of the game
@@ -14,11 +15,19 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class GameMain extends Thread{
     private final Canvas canvas;
-    StageManager scenes;
+    private final Group group;
+    private final StageManager scenes;
+    private final MouseEvents mouseEvents = new MouseEvents();
+    public void initializeControls(){
+        this.group.setOnMouseClicked(mouseEvents::setClick);
+        this.group.setOnMouseMoved(mouseEvents::setMove);
+    }
 
-    public GameMain(Canvas c){
+    public GameMain(Group g, Canvas c){
+        this.group = g;
         this.canvas = c;
         this.scenes = new StageManager();
+        Platform.runLater(this::initializeControls);
     }
 
     public void startStage(String stageName){
@@ -31,19 +40,17 @@ public class GameMain extends Thread{
 
     public void run(){
         GraphicsContext graphicContext = canvas.getGraphicsContext2D();
-
-        while(true){
-            scenes.Run(canvas.getWidth(), canvas.getHeight());
+            scenes.Run(canvas.getWidth(), canvas.getHeight(), this.mouseEvents);
             graphicContext.drawImage(scenes.getBackground(), 0, 0, canvas.getWidth(), canvas.getHeight());
 
             scenes.objectsToDraw().forEach(o -> graphicContext.drawImage(o.getImage(), o.getX(), o.getY(), o.getWidth(), o.getHeight()));
             //scenes.objectsToDraw().forEach(System.out::println);
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(30);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
+        run();
     }
 }

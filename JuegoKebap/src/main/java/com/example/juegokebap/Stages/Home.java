@@ -1,5 +1,6 @@
 package com.example.juegokebap.Stages;
 
+import com.GameEngine.Objects.CollisionableSprite;
 import com.GameEngine.Stages.IsometricStage;
 import com.GameEngine.Vectors.Vector;
 import com.example.juegokebap.Objects.BoxIsometric;

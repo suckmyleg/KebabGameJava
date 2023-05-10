@@ -1,10 +1,9 @@
 package com.example.juegokebap.Backgrounds;
 
 import com.GameEngine.Backgrounds.Background;
-import com.GameEngine.Backgrounds.Tasks;
+import com.GameEngine.Management.Tasks;
 import com.GameEngine.Management.Stadistics;
 import com.GameEngine.Objects.ControllableSprite;
-import com.GameEngine.Objects.Sprite;
 import com.GameEngine.Stages.Stage;
 
 import java.util.List;
@@ -26,5 +25,10 @@ public class Creditos implements Background {
         }
 
         return tasks;
+    }
+
+    @Override
+    public void Start(Stage stage) {
+
     }
 }

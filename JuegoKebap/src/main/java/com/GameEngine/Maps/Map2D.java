@@ -5,6 +5,7 @@ import com.GameEngine.Objects.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Map2D implements Map{
     protected List<ControllableSprite> map;
@@ -25,13 +26,19 @@ public class Map2D implements Map{
 
     @Override
     public boolean add(ControllableSprite obj) {
-        this.map.add(this.map.size(), obj);
+        this.map.add(obj);
         return true;
     }
 
     @Override
     public boolean remove(ControllableSprite obj) {
         this.map.remove(obj);
+        return true;
+    }
+
+    @Override
+    public boolean remove(String obj) {
+        this.map.removeIf((x)-> x.toString().equals(obj));
         return true;
     }
 

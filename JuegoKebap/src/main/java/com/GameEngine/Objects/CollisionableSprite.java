@@ -59,13 +59,12 @@ public class CollisionableSprite extends ControllableSprite{
     public void Run(GameContent content){
         super.Run(content);
 
-        for(ControllableSprite o : content.getObjects()){
-            CollisionableSprite obj = (CollisionableSprite) o;
-            if(intersect(obj)){
-                obj.onCollision(content, this);
-                this.onCollision(content, obj);
+        /**content.getObjects().stream().peek((x)->{
+            if(x instanceof CollisionableSprite j && this.intersect(j)){
+                j.onCollision(content, this);
+                this.onCollision(content, j);
             }
-        }
+        });**/
     }
 
 }

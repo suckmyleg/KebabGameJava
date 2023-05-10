@@ -18,7 +18,7 @@ public class Application extends javafx.application.Application {
         root.getChildren().add(canvas);
 
         stage.setScene(new Scene(root));
-        GameMain main = new GameMain(canvas);
+        GameMain main = new GameMain(root, canvas);
 
         main.addStage(new Home());
         main.addStage(new Work());
@@ -26,7 +26,7 @@ public class Application extends javafx.application.Application {
         main.addStage(new FriesMiniGame());
         main.addStage(new DancingBoxes());
 
-        main.startStage("DancingBoxes");
+        main.startStage("FriesMiniGame");
         main.start();
         stage.show();
     }

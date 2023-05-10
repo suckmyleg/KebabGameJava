@@ -1,9 +1,8 @@
 package com.GameEngine.Management;
 
-import com.GameEngine.Backgrounds.Tasks;
 import com.GameEngine.Objects.ControllableSprite;
-import com.GameEngine.Objects.Sprite;
 import com.GameEngine.Stages.Stage;
+import com.GameEngine.Utils.MouseEvents;
 import javafx.scene.image.Image;
 
 import java.util.HashMap;
@@ -53,16 +52,17 @@ public class StageManager {
         HashMap content = tasks.getContent();
         if(content.get("activateScene")!=null) activateScene(content.get("activateScene").toString());
         if(content.get("startScene")!=null) startScene(content.get("startScene").toString());
+        if(content.get("removeObject")!=null) runningStage.removeObject(content.get("removeObject").toString());
     }
 
     public Image getBackground(){
         return this.runningStage.getBackground();
     }
 
-    public void Run(double w, double h){
+    public void Run(double w, double h, MouseEvents mouseEvents){
         this.stats.run(w, h);
 
-        this.runningStage.RunObjects(this.stats);
+        this.runningStage.RunObjects(this.stats, mouseEvents);
 
         RunTasks(runningStage.RunBackgrounds(this.stats));
 

@@ -7,19 +7,15 @@ import com.GameEngine.Stages.Stage;
 
 import java.util.List;
 
-public class AutomaticSwitch implements Background{
-    private final double after;
-    private final String scene;
-    public AutomaticSwitch(double after, String scene){
-        this.after = after;
-        this.scene = scene;
-    }
+public class HudStats implements Background {
     @Override
     public Tasks Run(List<ControllableSprite> objects, Stadistics gameStats, Stadistics sceneStats, Tasks tasks, Stage stage) {
-        if(sceneStats.getTotalLapsed() > this.after) tasks.startScene(this.scene);
+
         return tasks;
     }
 
     @Override
-    public void Start(Stage stage) {}
+    public void Start(Stage stage) {
+
+    }
 }

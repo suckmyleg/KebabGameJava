@@ -52,6 +52,12 @@ public class Map3D implements Map{
         return true;
     }
 
+
+    @Override
+    public boolean remove(String obj) {
+        return false;
+    }
+
     @Override
     public List<ControllableSprite> getObjects() {
         return Arrays.stream(this.map)

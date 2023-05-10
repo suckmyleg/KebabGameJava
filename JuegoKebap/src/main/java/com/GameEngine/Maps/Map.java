@@ -13,6 +13,7 @@ public interface Map {
     public boolean occupied(double x, double y, double z);
     public boolean add(ControllableSprite obj);
     public boolean remove(ControllableSprite obj);
+    public boolean remove(String obj);
     public List<ControllableSprite> getObjects();
     public int count();
     public void removeAll();
