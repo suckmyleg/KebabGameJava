@@ -32,9 +32,7 @@ public class ClickableSprite extends CollisionableSprite{
         return new Rectangle2D(mouse.getX(), mouse.getY(), 1, 1).intersects(this.getBoundary());
     }
 
-    public void onClicked(){
-
-    }
+    public void onClicked(){}
 
     public void Run(GameContent content){
         super.Run(content);
