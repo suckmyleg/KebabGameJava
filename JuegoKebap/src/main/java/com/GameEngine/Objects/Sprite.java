@@ -70,39 +70,96 @@ public class Sprite {
         return (pX >= x && pX <= (x+this.size.getX())) && (pY >= y && pY <= (y+this.size.getY()));
     }
 
+    /**
+     * Get x position
+     */
     public double getX(){
         return this.position.getX();
     }
+
+    /**
+     * Get y position
+     */
     public double getY(){
         return this.position.getY();
     }
+
+
+    /**
+     * Get z position
+     */
     public double getZ(){
         return this.position.getZ();
     }
 
 
+
+    /**
+     * Get width
+     */
     public double getWidth(){
         return this.size.getX();
     }
+
+
+    /**
+     * Get height
+     */
     public double getHeight(){
         return this.size.getY();
     }
 
 
+    /**
+     * Get vector size
+     */
     public Vector getSize(){return this.size;}
+
+
+    /**
+     * Get vector position
+     */
     public Vector getPosition(){
         return this.position;
     }
 
 
+    /**
+     * Get image
+     */
     public Image getImage(){
         return this.img.get();
     }
 
+    /**
+     * Get superImage class
+     */
+    public SuperImage getSuperImage(){return this.img;}
 
+
+    /**
+     * Runs every frame
+     */
     public void Run(GameContent content){}
+
+
+    /**
+     * When the sprite has been added to the world
+     */
     public void Start(Sprite o){}
 
+    /**
+     * Transform it as a key reference
+     */
+    public String toKey(){
+        return this.getClass().getName() + "-P:" + this.position + "-S:"+this.size+"-I:"+this.getImage()+
+                "-S:"+this.stats;
+    }
+
+
+    /**
+     * Get object info
+     */
     @Override
     public String toString(){
         return this.getClass().getName() + "\n  -Pos: " + this.position + "\n  -Size: "+this.size+"\n  -Img: "+this.getImage()+

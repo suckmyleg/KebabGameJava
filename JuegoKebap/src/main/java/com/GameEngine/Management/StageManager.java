@@ -16,6 +16,7 @@ import java.util.List;
 public class StageManager {
     private final HashMap<String, Stage> scenes = new HashMap<>();
     private final Stadistics stats;
+    private final StageBridge bridge = new StageBridge();
 
     private Stage runningStage;
 
@@ -29,7 +30,7 @@ public class StageManager {
 
     public void startScene(String name){
         this.activateScene(name);
-        this.runningStage.Start();
+        this.runningStage.Start(bridge);
     }
 
     public void restartScene(){
@@ -40,7 +41,10 @@ public class StageManager {
         System.out.println("Activating " + name + " scene");
         if(this.runningStage != null) this.runningStage.Stop();
         this.runningStage = this.scenes.get(name);
-        this.runningStage.Activate();
+        if(this.runningStage != null) RunTasks(this.runningStage.Activate(bridge, new Tasks()));
+        else{
+            System.out.println("No scene called "+name);
+        }
     }
 
     public List<ControllableSprite> objectsToDraw(){
@@ -49,10 +53,10 @@ public class StageManager {
     }
 
     private void RunTasks(Tasks tasks){
-        HashMap content = tasks.getContent();
-        if(content.get("activateScene")!=null) activateScene(content.get("activateScene").toString());
-        if(content.get("startScene")!=null) startScene(content.get("startScene").toString());
-        if(content.get("removeObject")!=null) runningStage.removeObject(content.get("removeObject").toString());
+        HashMap<String, List<String>> content = tasks.getContent();
+        if(content.get("activateScene")!=null) content.get("activateScene").forEach(this::activateScene);
+        if(content.get("startScene")!=null) content.get("startScene").forEach(this::startScene);;
+        if(content.get("removeObject")!=null) content.get("removeObject").forEach(runningStage::removeObject);
     }
 
     public Image getBackground(){
@@ -61,9 +65,7 @@ public class StageManager {
 
     public void Run(double w, double h, MouseEvents mouseEvents){
         this.stats.run(w, h);
-
-        this.runningStage.RunObjects(this.stats, mouseEvents);
-
+        RunTasks(this.runningStage.RunObjects(this.stats, mouseEvents, bridge));
         RunTasks(runningStage.RunBackgrounds(this.stats));
 
     }

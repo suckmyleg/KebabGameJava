@@ -2,6 +2,11 @@ package com.GameEngine.Management;
 
 import java.util.Date;
 
+/**
+ * Stats about the player, can be moved, etc
+ * @author suckmyleg
+ * @version 1.0 (Abandoned?)
+ */
 public class PlayerStats {
     private double moved;
     private final double startTime;

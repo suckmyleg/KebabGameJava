@@ -18,11 +18,19 @@ public class GameMain extends Thread{
     private final Group group;
     private final StageManager scenes;
     private final MouseEvents mouseEvents = new MouseEvents();
+
+
+    /**
+     * Create the events of mouse movement and click
+     */
     public void initializeControls(){
         this.group.setOnMouseClicked(mouseEvents::setClick);
         this.group.setOnMouseMoved(mouseEvents::setMove);
     }
 
+    /**
+     * Save the cangas, group and create scenes
+     */
     public GameMain(Group g, Canvas c){
         this.group = g;
         this.canvas = c;
@@ -30,27 +38,37 @@ public class GameMain extends Thread{
         Platform.runLater(this::initializeControls);
     }
 
+    /**
+     * Start stage
+     */
     public void startStage(String stageName){
         this.scenes.startScene(stageName);
     }
 
+    /**
+     * Add stage
+     */
     public void addStage(Stage stage){
         this.scenes.addScene(stage);
     }
 
+    /**
+     * Main
+     */
     public void run(){
-        GraphicsContext graphicContext = canvas.getGraphicsContext2D();
+        while(true){
+            GraphicsContext graphicContext = canvas.getGraphicsContext2D();
             scenes.Run(canvas.getWidth(), canvas.getHeight(), this.mouseEvents);
+
             graphicContext.drawImage(scenes.getBackground(), 0, 0, canvas.getWidth(), canvas.getHeight());
 
             scenes.objectsToDraw().forEach(o -> graphicContext.drawImage(o.getImage(), o.getX(), o.getY(), o.getWidth(), o.getHeight()));
-            //scenes.objectsToDraw().forEach(System.out::println);
 
             try {
-                Thread.sleep(30);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        run();
+        }
     }
 }

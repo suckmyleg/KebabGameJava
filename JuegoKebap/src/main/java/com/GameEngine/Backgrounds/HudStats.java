@@ -7,6 +7,11 @@ import com.GameEngine.Stages.Stage;
 
 import java.util.List;
 
+/**
+ * Runs every frame, makes the changes based on the game situation
+ * @author suckmyleg
+ * @version 1.0 (Abandoned)
+ */
 public class HudStats implements Background {
     @Override
     public Tasks Run(List<ControllableSprite> objects, Stadistics gameStats, Stadistics sceneStats, Tasks tasks, Stage stage) {

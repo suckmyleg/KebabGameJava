@@ -1,6 +1,7 @@
 package com.GameEngine.Stages;
 
 import com.GameEngine.Backgrounds.Background;
+import com.GameEngine.Management.StageBridge;
 import com.GameEngine.Management.Tasks;
 import com.GameEngine.Maps.Map;
 import com.GameEngine.Maps.Map2D;
@@ -29,23 +30,42 @@ public class Stage {
     protected final Image backgroundImage;
     private Vector size;
 
-    public void Start(){
+    /**
+     * When the stage has been added to the list of stages
+     */
+    public void Start(StageBridge bridge){
         System.out.println("+"+this.name+" scene");
     }
 
+    /**
+     * When the stage has been stopped
+     */
     public void Stop(){
         System.out.println("-"+this.name+" scene");
     }
 
-    public void Activate() {
+    /**
+     * When the stage has been activated
+     */
+    public Tasks Activate(StageBridge bridge, Tasks tasks) {
         this.stats = new Stadistics();
+        return tasks;
     }
 
-    public void RunObjects(Stadistics gameStats, MouseEvents mouseEvents){
+    /**
+     * Run all objects from the world
+     */
+    public Tasks RunObjects(Stadistics gameStats, MouseEvents mouseEvents, StageBridge bridge){
+
+        Tasks tasks = new Tasks();
         List<ControllableSprite> objects = this.map.getObjects();
-        objects.forEach(x -> x.Run(new GameContent(this.map.getObjects(), gameStats, this.stats, x, mouseEvents)));
+        objects.forEach(x -> x.Run(new GameContent(this.map.getObjects(), gameStats, this.stats, x, mouseEvents, tasks, this, bridge)));
+        return tasks;
     }
 
+    /**
+     * Run all backgrounds controllers
+     */
     public Tasks RunBackgrounds(Stadistics gameStats){
         Tasks tasks = new Tasks();
         this.backgrounds.forEach(x -> x.Run(this.map.getObjects(), gameStats, this.stats, tasks, this));
@@ -69,37 +89,69 @@ public class Stage {
 
     public Stage(String name){
         this.stats = new Stadistics();
-        this.backgroundImage = SecureImage.loadImage("NoImage");
+        this.backgroundImage = SecureImage.loadImage("");
         this.name = name;
         this.map = new Map2D();
     }
 
+    /**
+     * Gets all objects that needs to be showed in the screen
+     */
     public List<ControllableSprite> objectsToDraw(){
         return this.map.getObjects();
     }
 
+    /**
+     * get name of the stage
+     */
     public String getName(){
         return this.name;
     }
+
+
+    /**
+     * Get background image
+     */
     public Image getBackground(){return this.backgroundImage;}
 
+    /**
+     * Get backgroundSize
+     */
+    public Vector getSize(){return size;}
+
+    /**
+     * Remove all objects from the world
+     */
     public void clearObjects(){
         this.map.removeAll();
     }
+
+    /**
+     * Run all backgrounds controllers
+     */
     public void clearBackgrounds(){
         this.backgrounds = new ArrayList<>();
     }
+
+    /**
+     * Add object to the world, and start he object
+     */
     public void addObject(ControllableSprite o){
         this.map.add(o);
-        //System.out.println("Added object\n"+o);
         o.Start(o);
     }
-    public void removeObject(ControllableSprite o){
-        this.map.remove(o);
+
+    /**
+     * Remove object from the world with the objectKey
+     */
+    public void removeObject(String objectString){
+        this.map.remove(objectString);
     }
-    public void removeObject(String toString){
-        this.map.remove(toString);
-    }
+
+
+    /**
+     * Add background controller
+     */
     public void addBackground(Background b){
         this.backgrounds.add(this.backgrounds.size(), b);
         b.Start(this);

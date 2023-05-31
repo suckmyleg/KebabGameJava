@@ -20,13 +20,14 @@ public class Application extends javafx.application.Application {
         stage.setScene(new Scene(root));
         GameMain main = new GameMain(root, canvas);
 
-        main.addStage(new Home());
-        main.addStage(new Work());
-        main.addStage(new Test());
-        main.addStage(new FriesMiniGame());
-        main.addStage(new DancingBoxes());
+        main.addStage(new StartMenuStage());
+        main.addStage(new FoodFallingMiniGame());
+        main.addStage(new SelectModeMenu());
+        main.addStage(new SelectDifficultyMenu());
+        main.addStage(new Won());
+        main.addStage(new Lost());
 
-        main.startStage("FriesMiniGame");
+        main.startStage("StartMenu");
         main.start();
         stage.show();
     }

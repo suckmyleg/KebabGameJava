@@ -14,9 +14,17 @@ import java.util.List;
  * @version 1.0
  */
 public interface Background {
-
+    /**
+     * Runs every frame, makes the changes based on the game situation
+     * @author suckmyleg
+     */
     public Tasks Run(List<ControllableSprite> objects, Stadistics gameStats, Stadistics sceneStats, Tasks tasks, Stage stage);
 
+    /**
+     * Runs when it has been added to the stage
+     * It makes the changes needed so it can work
+     * @author suckmyleg
+     */
     public void Start(Stage stage);
     public String toString();
 }

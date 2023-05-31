@@ -13,6 +13,9 @@ public class TitledMap extends Map2D{
         this.tileSize = tileSize;
     }
 
+    /**
+     * Add object to the world
+     */
     @Override
     public boolean add(ControllableSprite obj){
         obj.getSize().set(this.tileSize);
@@ -21,12 +24,17 @@ public class TitledMap extends Map2D{
         return true;
     }
 
+    /**
+     * Remove object with the Object as reference
+     */
     @Override
     public boolean remove(ControllableSprite obj){
         return true;
     }
 
-
+    /**
+     * Get all objects
+     */
     @Override
     public List<ControllableSprite> getObjects() {
         return this.map;

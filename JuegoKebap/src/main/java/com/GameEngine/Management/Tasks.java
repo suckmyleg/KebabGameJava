@@ -1,5 +1,6 @@
 package com.GameEngine.Management;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -10,25 +11,32 @@ import java.util.List;
  * @version 1.0
  */
 public class Tasks {
-    private final HashMap<String, String> content = new HashMap();
+    private final HashMap<String, List<String>> content = new HashMap<>();
     public void activateScene(String scene){
-        content.put("activateScene", scene);
+        add("activateScene", scene);
     }
     public void startScene(String scene){
-        content.put("startScene", scene);
+        add("startScene", scene);
     }
     public void removeObject(String object){
-        content.put("removeObject", object);
+        add("removeObject", object);
     }
 
-    public void queueTask(String name, String value){this.content.put(name, value);}
-    public void addToQueue(String name, String value){
-        this.content.put(name, this.content.get(name)==null?value:(this.content.get(name).toString()+","+value));
+    public void add(String name, String value){
+        List<String> list;
+        if(this.content.get(name)==null){
+            list = new ArrayList<>();
+        }else{
+            list = this.content.get(name);
+        }
+
+        list.add(value);
+        this.content.put(name, list);
     }
-    public String get(String name){return this.content.get(name);}
+    public List<String> get(String name){return this.content.get(name);}
     public List<String> getQueues(String name){
-        return Arrays.stream(this.content.get(name).split(",")).toList();
+        return this.content.get(name);
     }
 
-    public HashMap getContent(){return content;}
+    public HashMap<String, List<String>> getContent(){return this.content;}
 }
