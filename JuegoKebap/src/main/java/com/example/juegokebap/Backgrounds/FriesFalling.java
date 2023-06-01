@@ -86,7 +86,7 @@ public class FriesFalling implements Background {
      */
     @Override
     public Tasks Run(List<ControllableSprite> objects, Stadistics gameStats, Stadistics sceneStats, Tasks tasks, Stage s) {
-        Random r = new java.util.Random();
+        Random r = new Random();
         if(r.nextInt(this.probability) == 1 && potatoesToFall > potatoesGenerated){
             Frie f = new Frie(
                     new Vector(r.nextInt((int)gameStats.getSize().getX()-200), -300),
